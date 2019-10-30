@@ -8,3 +8,7 @@ Native API ini kita gunakan sebagai bahan belajar murid SMK Islamic Boarding Sch
 Berikut adalah schema pendekatan dan untuk memahami konsep yang akan kita gunakan adalah dengan mengetahui shema pada jaringan yang akan kita gunakan sebagai berikut:
 
 <img src="https://github.com/kutipduwa/Native-API/blob/master/captures/Screenshot%20from%202019-10-30%2010-20-46.png"/>
+
+Dimana akses kedalam webserver yang tersedia di komputer / laptop guru sebagai berikut dengan mengakses IP dari laptop tujuan dan pastikan yang mengakses dalam 1 jaringan / subnet dalam jaringan.
+
+<img src="https://github.com/kutipduwa/Native-API/blob/master/captures/Screenshot%20from%202019-10-30%2010-28-49.png"/>
