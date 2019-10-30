@@ -6,7 +6,7 @@
 
 	define('DB_USER', "root");
 	define('DB_PASSWORD', "!!&21adi");
-	define('DB_DATABASE', "id11172335_db_apiloginregister"); 
+	define('DB_DATABASE', "db_otentikasiapi"); 
 	define('DB_SERVER', "localhost");
 
 	$con = mysqli_connect(DB_SERVER,DB_USER,DB_PASSWORD,DB_DATABASE);
