@@ -1,0 +1,179 @@
+package id.mpeinc.portalberita.side;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import id.mpeinc.portalberita.R;
+import id.mpeinc.portalberita.adapter.AdapterBerita;
+import id.mpeinc.portalberita.auth.LoginActivity;
+import id.mpeinc.portalberita.helper.Function;
+import id.mpeinc.portalberita.helper.SharedPreferenceManager;
+import id.mpeinc.portalberita.model.BeritaItem;
+import id.mpeinc.portalberita.model.ResponseBerita;
+import id.mpeinc.portalberita.network.ApiServices;
+import id.mpeinc.portalberita.network.InitRetrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends Function {
+
+    @BindView(R.id.rvListBerita)
+    RecyclerView rvListBerita;
+    @BindView(R.id.swlayout)
+    SwipeRefreshLayout swlayout;
+    @BindView(R.id.llLayout)
+    LinearLayout llLayout;
+
+    private final static String TAG = MainActivity.class.getSimpleName();
+
+    SharedPreferenceManager sharedPreferenceManager;
+    ProgressDialog progressDialog;
+    View parentView;
+    Context context;
+
+    private RecyclerView recyclerView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        context = this;
+        sharedPreferenceManager = new SharedPreferenceManager(this);
+        parentView = llLayout;
+
+        recyclerView = (RecyclerView)findViewById(R.id.rvListBerita);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        showBerita();
+
+        swlayout.setColorSchemeResources(R.color.accent, R.color.primary);
+        swlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showBerita();
+                        swlayout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
+    }
+
+    private void showBerita() {
+        ApiServices api = InitRetrofit.getInstance();
+
+        Call<ResponseBerita> beritaCall = api.requestBerita();
+        beritaCall.enqueue(new Callback<ResponseBerita>() {
+            @Override
+            public void onResponse(Call<ResponseBerita> call, Response<ResponseBerita> response) {
+                if (response.isSuccessful()) {
+                    List<BeritaItem> data_berita = response.body().getBerita();
+
+                    boolean status = response.body().isStatus();
+
+                    if (status) {
+                        AdapterBerita adapterBerita = new AdapterBerita(MainActivity.this, data_berita);
+                        recyclerView.setAdapter(adapterBerita);
+
+                        Snackbar.make(parentView, "News up to date.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        progressDialog.dismiss();
+                    } else {
+                        Snackbar.make(parentView, "Not found new now.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        progressDialog.dismiss();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    Snackbar.make(parentView, "Not found new now.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBerita> call, Throwable t) {
+                Snackbar.make(parentView, "Error connection, pease check your internet.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("d", "onResume");
+        showBerita();
+        progressDialog = ProgressDialog.show(context, null, "Loading...", true, false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Berita Esemka")
+                    .setMessage("Anda yakin ingin keluar?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            sharedPreferenceManager = new SharedPreferenceManager(getApplicationContext());
+            sharedPreferenceManager.saveSPBoolean(SharedPreferenceManager.SP_ALREADY_LOGINREADER, false);
+            sharedPreferenceManager.saveSPString(SharedPreferenceManager.SP_IDUSER, "");
+            sharedPreferenceManager.saveSPString(SharedPreferenceManager.SP_USERNAME, "");
+            sharedPreferenceManager.saveSPString(SharedPreferenceManager.SP_FULLNAME, "");
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            Snackbar.make(parentView, "Logged out.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}

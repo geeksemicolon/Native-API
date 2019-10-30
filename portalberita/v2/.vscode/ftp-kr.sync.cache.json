@@ -1,0 +1,22 @@
+{
+  "ftp://files.000webhost.com:21@mobileprogrammingesemka": {
+    "public_html": {
+      "api": {
+        "portalberita": {
+          "v1": {
+            "codeshare": {},
+            "config": {},
+            "gambar_berita": {},
+            "get.php": {
+              "type": "-",
+              "size": 1306,
+              "lmtime": 1571122133827,
+              "modified": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "$version": 1
+}

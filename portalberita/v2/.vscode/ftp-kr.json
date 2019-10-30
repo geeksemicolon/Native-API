@@ -1,0 +1,16 @@
+{
+    "host": "files.000webhost.com",
+    "username": "mobileprogrammingesemka",
+    "password": "#&(@iwe#453p714d1",
+    "remotePath": "/public_html/api/portalberita/v1/",
+    "protocol": "ftp",
+    "port": 21,
+    "fileNameEncoding": "utf8",
+    "autoUpload": false,
+    "autoDelete": false,
+    "autoDownload": false,
+    "ignore": [
+        ".git",
+        "/.vscode"
+    ]
+}

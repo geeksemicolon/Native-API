@@ -1,0 +1,37 @@
+{
+  "ftp://files.000webhost.com:21@hektrickzzz": {
+    "public_html": {
+      "api": {
+        "loginregister": {
+          "v1": {
+            "initial.php": {
+              "type": "-",
+              "size": 1084,
+              "lmtime": 0,
+              "modified": false
+            },
+            "koneksi.php": {
+              "type": "-",
+              "size": 366,
+              "lmtime": 1571020013354,
+              "modified": true
+            },
+            "login.php": {
+              "type": "-",
+              "size": 1270,
+              "lmtime": 0,
+              "modified": false
+            },
+            "register.php": {
+              "type": "-",
+              "size": 1253,
+              "lmtime": 0,
+              "modified": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "$version": 1
+}

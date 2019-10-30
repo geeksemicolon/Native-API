@@ -1,0 +1,16 @@
+{
+    "host": "files.000webhost.com",
+    "username": "hektrickzzz",
+    "password": "^%$#!!2153p71__",
+    "remotePath": "/public_html/api/loginregister/v1/",
+    "protocol": "ftp",
+    "port": 21,
+    "fileNameEncoding": "utf8",
+    "autoUpload": false,
+    "autoDelete": false,
+    "autoDownload": false,
+    "ignore": [
+        ".git",
+        "/.vscode"
+    ]
+}
