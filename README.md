@@ -16,5 +16,7 @@ Dimana akses kedalam webserver yang tersedia di komputer / laptop guru sebagai b
 ### Bag. 3 - List Native API dengan PHP Programming + DBMS MySQL 
 Berikut dibawah ini kita list Native API yang bisa teman-teman gunakan, berikut listnya:
 
+<ol>
 <li><a href="https://github.com/kutipduwa/Native-API/tree/master/otentikasi-api">API Login & Register untuk Autentikasi Client dengan Server</a></li>
 <li><a href="https://github.com/kutipduwa/Native-API/tree/master/portalberita-api">API Portal Berita dengan Teknologi Login & Register memanfaatkan DBMS MySQL sebagai Penyimpanan Local, serta Memanfaatkan Web Hosting sebagai Jalur akses Server</a></li>
+</ol>
