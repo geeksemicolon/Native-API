@@ -12,3 +12,8 @@ Berikut adalah schema pendekatan dan untuk memahami konsep yang akan kita gunaka
 Dimana akses kedalam webserver yang tersedia di komputer / laptop guru sebagai berikut dengan mengakses IP dari laptop tujuan dan pastikan yang mengakses dalam 1 jaringan / subnet dalam jaringan.
 
 <img src="https://github.com/kutipduwa/Native-API/blob/master/captures/Screenshot%20from%202019-10-30%2010-28-49.png"/>
+
+### Bag. 3 - List Native API dengan PHP Programming + DBMS MySQL 
+Berikut dibawah ini kita list Native API yang bisa teman-teman gunakan, berikut listnya:
+
+<li><a href="https://github.com/kutipduwa/Native-API/tree/master/otentikasi-api">API Login & Register untuk Autentikasi Client dengan Server</a></li>
