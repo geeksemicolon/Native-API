@@ -1,0 +1,9 @@
+
+                varIntent.putExtra("ID", berita.get(position).getIdBerita());
+                varIntent.putExtra("TITLE", berita.get(position).getTitle());
+                varIntent.putExtra("TGL", berita.get(position).getPublishDate());
+                varIntent.putExtra("PUBLISHER", berita.get(position).getPublisher());
+                varIntent.putExtra("FOTO", MyConstant.FOTO_URL+berita.get(position).getFoto());
+                varIntent.putExtra("CONTENT", berita.get(position).getContent());
+
+                context.startActivity(varIntent);
